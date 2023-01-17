@@ -331,7 +331,8 @@ describe('component props', () => {
         arr: { type: Array },
         obj: { type: Object },
         cls: { type: MyClass },
-        fn: { type: Function }
+        fn: { type: Function },
+        fnAny: { type: [Function, null] }
       },
       setup() {
         return () => null
@@ -345,7 +346,8 @@ describe('component props', () => {
         arr: {},
         obj: 'false',
         cls: {},
-        fn: true
+        fn: true,
+        fnAny: true
       }),
       nodeOps.createElement('div')
     )
@@ -370,6 +372,10 @@ describe('component props', () => {
     expect(
       `Invalid prop: type check failed for prop "cls". Expected MyClass, got Object`
     ).toHaveBeenWarned()
+
+    expect(
+      `Invalid prop: type check failed for prop "fnAny". Expected Function, got Boolean with value true.`
+    ).not.toHaveBeenWarned()
   })
 
   // #3495
